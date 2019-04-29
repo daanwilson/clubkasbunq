@@ -1,0 +1,9 @@
+@if($vtable['view'])
+    @include('layouts.table.view',['vtable'=>$vtable])
+@endif
+@if($vtable['edit'])
+    @include('layouts.table.edit',['vtable'=>$vtable])
+@endif
+@if($vtable['remove'])
+    @include('layouts.table.remove',['vtable'=>$vtable])
+@endif
