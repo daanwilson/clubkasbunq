@@ -135,14 +135,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/seasons/{season}', ['middleware' => ['permission:season-management'], 'uses' => 'SeasonController@store'])->name('season.update');
     Route::delete('/seasons/{season}', ['middleware' => ['permission:season-management'], 'uses' => 'SeasonController@destroy'])->name('season.delete');
 
-    Route::get('/bunqtab', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@index'])->name('bunqtabs.index');
-    Route::get('/bunqtab/data', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@data'])->name('bunqtabs.data');
-    Route::get('/bunqtab/new', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@create'])->name('bunqtabs.create');
-    Route::post('/bunqtab/new', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@store'])->name('bunqtabs.store');
-    Route::get('/bunqtab/{tab}', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@edit'])->name('bunqtabs.edit');
-    Route::post('/bunqtab/{tab}', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@update'])->name('bunqtabs.update');
-    Route::delete('/bunqtab/{tab}', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@destroy'])->name('bunqtabs.delete');
-    Route::get('/bunqtab/{tab}/qrcode/{shortname}', ['middleware' => ['permission:season-management'], 'uses' => 'BunqTabRequestsController@qrcode'])->name('bunqtabs.qrcode');
+    Route::get('/bunqtab', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@index'])->name('bunqtabs.index');
+    Route::get('/bunqtab/data', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@data'])->name('bunqtabs.data');
+    Route::get('/bunqtab/new', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@create'])->name('bunqtabs.create');
+    Route::post('/bunqtab/new', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@store'])->name('bunqtabs.store');
+    Route::get('/bunqtab/{tab}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@edit'])->name('bunqtabs.edit');
+    Route::post('/bunqtab/{tab}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@update'])->name('bunqtabs.update');
+    Route::delete('/bunqtab/{tab}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@destroy'])->name('bunqtabs.delete');
+    Route::get('/bunqtab/{tab}/qrcode/{shortname}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@qrcode'])->name('bunqtabs.qrcode');
 
 
 });

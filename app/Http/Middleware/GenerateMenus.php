@@ -89,7 +89,9 @@ class GenerateMenus {
                         $menu->get('settings')->add(_('Posten'), ['route' => 'moneyitem.index'])->prepend('<i class="fas fa-sitemap"></i>&nbsp;');
                     }
                 }
-                $menu->add(_("Bunq Tabs (Betaalverzoeken)"),['route' => 'bunqtabs.index'])->nickname('bunqtabs')->prepend('<i class="fas fa-cash-register"></i>&nbsp;');
+                if(Auth::User()->can('bunqtab-payment-requests')) {
+                    $menu->add(_("Bunq Tabs (Betaalverzoeken)"), ['route' => 'bunqtabs.index'])->nickname('bunqtabs')->prepend('<i class="fas fa-cash-register"></i>&nbsp;');
+                }
 
             }
         });
