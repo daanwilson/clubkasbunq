@@ -41,7 +41,7 @@ class GenerateMenus {
                     if(Auth::User()->can('member-management')){
                         $menu->get('leden')->add(_('Leden'), ['route' => 'members.index'])->prepend('<i class="fas fa-users fa-fw"></i>&nbsp;');
                         $menu->get('leden')->add(_('Leden importeren'), ['route' => 'members.import'])->prepend('<i class="fas fa-file-import"></i>&nbsp;');
-                        $menu->get('leden')->add(_('Clobloten importeren'), ['route' => 'members.clubloten'])->prepend('<i class="fas fa-donate"></i>&nbsp;');
+                        $menu->get('leden')->add(_('Clubloten importeren'), ['route' => 'members.clubloten'])->prepend('<i class="fas fa-donate"></i>&nbsp;');
                     }
                 }
                 if(Auth::User()->can(['account-listing'])){
@@ -91,6 +91,8 @@ class GenerateMenus {
                 }
                 if(Auth::User()->can('bunqtab-payment-requests')) {
                     $menu->add(_("Bunq Tabs (Betaalverzoeken)"), ['route' => 'bunqtabs.index'])->nickname('bunqtabs')->prepend('<i class="fas fa-cash-register"></i>&nbsp;');
+
+                    $menu->add(_("Interne betalingen"), ['route' => 'internalpayments.index'])->prepend('<i class="fas fa-exchange-alt"></i>&nbsp;');
                 }
 
             }

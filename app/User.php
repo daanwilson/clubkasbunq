@@ -64,6 +64,13 @@ class User extends Authenticatable
         }
         return $accounts;
     }
+    function BankAccountsArray($result=[0=>' - Select - ']){
+        $accounts = $this->BankAccounts();
+        foreach ($accounts as $account){
+            $result[$account->id] = $account->description .' ('.$account->IBAN.')';
+        }
+        return $result;
+    }
     function CashAccounts(){
         $teams = $this->Teams();
         $accounts = [];
@@ -81,12 +88,14 @@ class User extends Authenticatable
         return $ids;
         
     }
-    function Teams(){
+    function Teams($with_account=false){
         $teams = array();
         $roles = $this->roles()->get();
         foreach($roles as $role){
             foreach($role->Teams()->get() as $team){
-                $teams[] = $team;
+                if(!$with_account || $team->bankaccount_id>0){
+                    $teams[] = $team;
+                }
             }           
         }
         return $teams;

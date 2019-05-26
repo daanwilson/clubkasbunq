@@ -48,7 +48,8 @@ class TeamController extends Controller
     public function create()
     {
         $team = new \App\Team();
-        return view('teams.edit',  compact('team'));
+        $accounts = \Auth::User()->BankAccounts();
+        return view('teams.edit',  compact('team','accounts'));
     }
 
     /**
@@ -96,7 +97,8 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        return view('teams.edit',  compact('team'));
+        $accounts = \Auth::User()->BankAccountsArray();
+        return view('teams.edit',  compact('team','accounts'));
     }
 
     /**
@@ -112,7 +114,7 @@ class TeamController extends Controller
             'name'=>'required',
         );
         $this->validate($request,$validate);      
-        $team->update(request(['name','color']));
+        $team->update(request(['name','color','bankaccount_id']));
         
         return ['message'=>'Wijziging succesvol opgeslagen','status'=>'success','result'=>true];
         //$request->session()->flash('status', 'Wijziging succesvol opgeslagen');

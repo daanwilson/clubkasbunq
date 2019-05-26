@@ -144,6 +144,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/bunqtab/{tab}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@destroy'])->name('bunqtabs.delete');
     Route::get('/bunqtab/{tab}/qrcode/{shortname}', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'BunqTabRequestsController@qrcode'])->name('bunqtabs.qrcode');
 
+    Route::get('/internalpayments', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'InternalPayments@index'])->name('internalpayments.index');
+    Route::post('/internalpayments', ['middleware' => ['permission:bunqtab-payment-requests'], 'uses' => 'InternalPayments@store'])->name('internalpayments.store');
+
 
 });
 

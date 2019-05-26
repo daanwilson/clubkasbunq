@@ -15,7 +15,7 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'color',
+        'name', 'color','bankaccount_id'
     ];
 
     function Members(){
