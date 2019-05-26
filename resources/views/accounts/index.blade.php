@@ -22,8 +22,11 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">{{ MoneyFormat($bankaccount->amount) }}</div>
-                        <div>{{ $bankaccount->description }}</div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ $bankaccount->IBAN }}</div>
+                    <div class="col-md-6 text-right">{{ $bankaccount->description }}</div>
                 </div>
             </div>
             <a href="{{ route('account.payments.index',$bankaccount->id) }}" style="color:{{ $bankaccount->color }}">

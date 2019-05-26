@@ -73,10 +73,24 @@ class BankPaymentsController extends Controller
     public function data(Request $request,BankAccount $bankAccount)
     {
         //$bankAccount->getPayments();//get payments from bunq
-        return \App\BankPayments::filtered($request)
+        $accounts = BankAccount::allCachedByKey('IBAN');
+        //dd($accounts);
+
+        $records = \App\BankPayments::filtered($request)
                 ->where('bankaccount_id', '=', $bankAccount->id)
                 ->where('input_type', '=', 'payment')
                 ->paginate(500);
+        if($records.hasItems()){
+            foreach($records as &$record){
+                if(array_key_exists($record->counterpart_IBAN,$accounts)){
+                    $record->counterpart_label = $accounts[$record->counterpart_IBAN]->description;
+                }else{
+                    $record->counterpart_label = $record->counterpart_IBAN;
+                }
+            }
+        }
+        //dd($records);
+        return $records;
     }
 
     public function pay(BankAccount $bankAccount){

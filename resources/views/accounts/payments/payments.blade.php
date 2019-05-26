@@ -116,7 +116,7 @@
                         <span v-if="row.amount<0">Verzonden aan:</span>
                         <span v-if="row.amount>=0">Ontvangen van:</span>
                         @{{ row.counterpart_name }}
-                        @{{ row.counterpart_IBAN }}
+                        @{{ row.counterpart_label }}
                     </div>
                 </td>
                 <td>
