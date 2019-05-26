@@ -624,13 +624,18 @@ class Selection {
             if(this.selected.length<=0) throw "Geen regels geselecteerd!";
             var action = $(event.target).parents('tr').find('select[name=action]').val();
             if(action==='') throw "Geen actie geselecteerd!";
+            if(this.selected.length<=0) throw "Geen regels geselecteerd!";
+            var ids = this.selected.join(',');
+
             if($(".modal#"+action).length>0){
-                //app.forms[0].data.action=action;
-                app.forms[0].form.data.action=action;
-                app.forms[0].form.data.ids=this.selected.join(',');
-                
-                $(".modal#"+action).modal();
+                $(".modal").each(function(i,e){
+                    //app.forms[i].data.action=action;
+                    app.forms[i].form.data.action=action;
+                    app.forms[i].form.data.ids=ids;
+                });
+
             }
+            $(".modal#"+action).modal();
         }
         catch(error) {
             app.message.msg.set(error, 'danger');

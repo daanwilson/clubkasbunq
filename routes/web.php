@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/accounts/{bankAccount}', ['middleware' => ['permission:account-listing'], 'uses' => 'BankPaymentsController@index'])->name('account.payments.index');
     Route::get('/accounts/{bankAccount}/data', ['middleware' => ['permission:account-listing'], 'uses' => 'BankPaymentsController@data'])->name('account.payments.data');
     Route::post('/accounts/{bankAccount}/data', ['middleware' => ['permission:account-listing'], 'uses' => 'BankPaymentsController@update'])->name('account.payments.update');
+    Route::post('/accounts/action', ['middleware' => ['permission:account-listing'], 'uses' => 'BankPaymentsController@action'])->name('account.payments.action');
 
     Route::get('/accounts/requests/{bankAccount}', ['middleware' => ['permission:account-listing'], 'uses' => 'BankRequestsController@index'])->name('account.requests.index');
     Route::get('/accounts/requests/{bankAccount}/data', ['middleware' => ['permission:account-listing'], 'uses' => 'BankRequestsController@data'])->name('account.requests.data');

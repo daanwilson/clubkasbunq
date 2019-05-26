@@ -132,4 +132,48 @@ class BankPaymentsController extends Controller
     {
         //
     }
+    public function action(Request $request){
+        try{
+            $ids = explode(",",$request->ids);
+            if(count($ids)==0){
+                throw new \Exception("Geen ids geselecteerd/meegestuurd.");
+            }
+            $records = BankPayments::find($ids);
+            if(empty($records)){
+                throw new \Exception("Geen records gevonden.");
+            }
+            if($request->action=='select_season'){
+                if((int)$request->season_id==0){
+                    throw new \Exception("Geen seizoen geselecteerd.");
+                }
+                foreach($records as $record){
+                    $record->season_id = (int)$request->season_id;
+                    $record->save();
+                }
+                return ['message'=>'Seizoen is succesvol opgeslagen bij '.count($ids).' regels.','status'=>'success','result'=>true,'hide_modal'=>true,'reload_tables'=>true];
+            }elseif($request->action=='select_item'){
+                if((int)$request->item_id==0){
+                    throw new \Exception("Geen post geselecteerd.");
+                }
+                foreach($records as $record){
+                    $record->item_id = (int)$request->item_id;
+                    $record->save();
+                }
+                return ['message'=>'Post is succesvol opgeslagen bij '.count($ids).' regels.','status'=>'success','result'=>true,'hide_modal'=>true,'reload_tables'=>true];
+            }elseif($request->action=='select_purpose'){
+                if((int)$request->purpose_id==0){
+                    throw new \Exception("Geen doel geselecteerd.");
+                }
+                foreach($records as $record){
+                    $record->purpose_id = (int)$request->purpose_id;
+                    $record->save();
+                }
+                return ['message'=>'Doel is succesvol opgeslagen bij '.count($ids).' regels.','status'=>'success','result'=>true,'hide_modal'=>true,'reload_tables'=>true];
+            }else{
+                throw new \Exception("Onbekende actie.....");
+            }
+        }catch(\Exception $e){
+            return ['message'=>$e->getMessage(),'status'=>'danger','result'=>false ];
+        }
+    }
 }
