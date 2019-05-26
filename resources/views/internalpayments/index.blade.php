@@ -41,7 +41,7 @@
                 @endforeach
                 <td><strong><u>{{ array_sum($aantalL) }}</u></strong></td>
             </tr>
-            <tr class="info">
+            <tr class="warning">
                 <td>Scouting NL</td>
                 @php
                     $total = array_sum($aantalY) + array_sum($aantalL);
@@ -70,7 +70,34 @@
                     @endif
                 </td>
             </tr>
-            <tr class="info">
+            <tr class="warning">
+                <td>Knutselfonds</td>
+                @php
+                    $total = array_sum($aantalY);
+                    $amount = (isset($amounts['knutsel']) ? $amounts['knutsel']->payment_amount : 0 );
+                    $amountPart = $amount;
+                @endphp
+                @foreach($teams as $team)
+                    <td>
+                        @if($amount>0)
+                            @php
+                                $totals[$team->id]+= ($amountPart * $aantalY[$team->id]);
+                            @endphp
+                            {{ MoneyFormat($amountPart * $aantalY[$team->id] ) }}
+                        @else
+                            &nbsp;
+                        @endif
+                    </td>
+                @endforeach
+                <td>
+                    @if($amount>0)
+                        <strong><u>{{ MoneyFormat($amountPart * $total ) }}</u></strong>
+                    @else
+                        &nbsp;
+                    @endif
+                </td>
+            </tr>
+            <tr class="warning">
                 <td>Materiaalfonds</td>
                 @php
                     $total = array_sum($aantalY);
@@ -82,48 +109,51 @@
                     @endphp
                     <td>
                         @php
-                            $totals[$team->id]+= ($amountPart * $aantalY[$team->id]);
-                            $amount+= ($amountPart * $aantalY[$team->id]);
+                            if(isset($totals[$team->id])){
+                                $totals[$team->id]+= ($amountPart * $aantalY[$team->id]);
+                                $amount+= ($amountPart * $aantalY[$team->id]);
+                            }
                         @endphp
                         {{ MoneyFormat($amountPart * $aantalY[$team->id]) }}
+                    </td>
+                @endforeach
+                <td>
+                    @if($amount>0)
+                        <strong><u>{{ MoneyFormat($amount ) }}</u></strong>
+                    @else
+                        &nbsp;
+                    @endif
                 </td>
-            @endforeach
-            <td>
-                @if($amount>0)
-                    <strong><u>{{ MoneyFormat($amount ) }}</u></strong>
-                @else
-                    &nbsp;
-                @endif
-            </td>
-        </tr>
-        <tr class="info">
-            <td>Knutselfonds</td>
-            @php
-                $total = array_sum($aantalY);
-                $amount = (isset($amounts['knutsel']) ? $amounts['knutsel']->payment_amount : 0 );
-                $amountPart = $amount;
-                        @endphp
-                        @foreach($teams as $team)
-                            <td>
-                                @if($amount>0)
-                                    @php
-                                        $totals[$team->id]+= ($amountPart * $aantalY[$team->id]);
-                                    @endphp
-                                    {{ MoneyFormat($amountPart * $aantalY[$team->id] ) }}
-                                @else
-                                    &nbsp;
-                                @endif
-                            </td>
-                        @endforeach
-                        <td>
-                            @if($amount>0)
-                                <strong><u>{{ MoneyFormat($amountPart * $total ) }}</u></strong>
-                            @else
-                                &nbsp;
-                            @endif
-                        </td>
             </tr>
+
             <tr class="success">
+                <td>Lenteactie</td>
+                @php
+                    $total = array_sum($aantalY);
+                    $amount = (isset($amounts['lenteactie']) ? $amounts['lenteactie']->payment_amount : 0 );
+                    $amountPart = $amount / $total;
+                @endphp
+                @foreach($teams as $team)
+                    <td>
+                        @if($amount>0)
+                            @php
+                                $totals[$team->id]-= ($amountPart * $aantalY[$team->id]);
+                            @endphp
+                            {{ MoneyFormat($amountPart * $aantalY[$team->id] ) }}
+                        @else
+                            &nbsp;
+                        @endif
+                    </td>
+                @endforeach
+                <td>
+                    @if($amount>0)
+                        <strong><u>{{ MoneyFormat($amountPart * $total ) }}</u></strong>
+                    @else
+                        &nbsp;
+                    @endif
+                </td>
+            </tr>
+            <tr class="info">
                 <td>&nbsp;</td>
                 @php
                     $total = array_sum($aantalY);
@@ -166,6 +196,19 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
+                    <h3>Knutselfonds</h3>
+                    <p>Voer hiernaast het bedrag in wat gevraagd wordt voor de knutselfonds. Dit bedrag wordt
+                        vermenigvuldigd met het aantal jeugdleden.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3>Knutselfonds</h3>
+                    <input type="text" class="form-control" name="amounts[knutsel]" placeholder="€ 0.00"
+                           value="{{ isset($amounts['knutsel']) ? $amounts['knutsel']->payment_amount : '' }}"/>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <h3>Materiaalfonds</h3>
                     <p>Voer hiernaast het bedrag in wat gevraagd wordt voor de materiaal fonds. Dit bedrag wordt
                         vermenigvuldigd met het aantal jeugdleden.</p>
@@ -175,7 +218,8 @@
                     @foreach($teams as $team)
                         <div class="row">
                             <div class="col-xs-4">{{$team->name}}</div>
-                            <div class="col-xs-8"><input type="text" class="form-control" name="amounts[materiaal_{{$team->id}}]" placeholder="€ 0.00"
+                            <div class="col-xs-8"><input type="text" class="form-control"
+                                                         name="amounts[materiaal_{{$team->id}}]" placeholder="€ 0.00"
                                                          value="{{ isset($amounts['materiaal_'.$team->id]) ? $amounts['materiaal_'.$team->id]->payment_amount : '' }}"/>
                             </div>
                         </div>
@@ -185,14 +229,15 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Knutselfonds</h3>
-                    <p>Voer hiernaast het bedrag in wat gevraagd wordt voor de knutselfonds. Dit bedrag wordt
-                        vermenigvuldigd met het aantal jeugdleden.</p>
+                    <h3>Lenteactie</h3>
+                    <p>Voer hiernaast het bedrag in wat opgehaald is met de lenteactie, minus de kosten. Oftewel, de
+                        winst. Dit bedrag wordt
+                        verdeeld over het aantal jeugdleden.</p>
                 </div>
                 <div class="col-md-6">
-                    <h3>Knutselfonds</h3>
-                    <input type="text" class="form-control" name="amounts[knutsel]" placeholder="€ 0.00"
-                           value="{{ isset($amounts['knutsel']) ? $amounts['knutsel']->payment_amount : '' }}"/>
+                    <h3>Lenteactie</h3>
+                    <input type="text" class="form-control" name="amounts[lenteactie]" placeholder="€ 0.00"
+                           value="{{ isset($amounts['lenteactie']) ? $amounts['lenteactie']->payment_amount : '' }}"/>
                 </div>
 
             </div>
