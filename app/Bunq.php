@@ -153,10 +153,10 @@ class Bunq
 
     function Pay($monetaryAccountId, $options = [])
     {
-        $amount = new Amount('9.95', 'EUR');
+        /*$amount = new Amount('9.95', 'EUR');
         $counterpart = new Pointer('IBAN', 'NL53BUNQ9900018931', 'Scouting st. Jozef-/Emerentiana');
 
-        Payment::create($amount, $counterpart, 'TEST');
+        Payment::create($amount, $counterpart, 'TEST');*/
     }
 
     function BunqInvoices($account)

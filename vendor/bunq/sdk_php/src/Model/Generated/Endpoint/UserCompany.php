@@ -6,8 +6,6 @@ use bunq\Model\Core\BunqModel;
 use bunq\Model\Generated\Object\Address;
 use bunq\Model\Generated\Object\Amount;
 use bunq\Model\Generated\Object\Avatar;
-use bunq\Model\Generated\Object\BunqId;
-use bunq\Model\Generated\Object\CardLimit;
 use bunq\Model\Generated\Object\LabelUser;
 use bunq\Model\Generated\Object\NotificationFilter;
 use bunq\Model\Generated\Object\Pointer;
@@ -42,6 +40,7 @@ class UserCompany extends BunqModel
     const FIELD_COUNTRY = 'country';
     const FIELD_UBO = 'ubo';
     const FIELD_CHAMBER_OF_COMMERCE_NUMBER = 'chamber_of_commerce_number';
+    const FIELD_LEGAL_FORM = 'legal_form';
     const FIELD_STATUS = 'status';
     const FIELD_SUB_STATUS = 'sub_status';
     const FIELD_SESSION_TIMEOUT = 'session_timeout';
@@ -115,6 +114,13 @@ class UserCompany extends BunqModel
      * @var string
      */
     protected $chamberOfCommerceNumber;
+
+    /**
+     * The company's legal form.
+     *
+     * @var string
+     */
+    protected $legalForm;
 
     /**
      * The type of business entity.
@@ -227,20 +233,6 @@ class UserCompany extends BunqModel
     protected $sessionTimeout;
 
     /**
-     * Card ids used for centralized card limits.
-     *
-     * @var BunqId[]
-     */
-    protected $cardIds;
-
-    /**
-     * The centralized limits for user's cards.
-     *
-     * @var CardLimit[]
-     */
-    protected $cardLimits;
-
-    /**
      * The amount the company can pay in the session without asking for
      * credentials.
      *
@@ -351,6 +343,13 @@ class UserCompany extends BunqModel
     protected $chamberOfCommerceNumberFieldForRequest;
 
     /**
+     * The company's legal form.
+     *
+     * @var string|null
+     */
+    protected $legalFormFieldForRequest;
+
+    /**
      * The user status. Can be: ACTIVE, SIGNUP, RECOVERY.
      *
      * @var string|null
@@ -406,6 +405,7 @@ class UserCompany extends BunqModel
      *                                                        ultimate beneficiary owners. Minimum zero, maximum four.
      * @param string|null $chamberOfCommerceNumber            The company's chamber of
      *                                                        commerce number.
+     * @param string|null $legalForm                          The company's legal form.
      * @param string|null $status                             The user status. Can be: ACTIVE, SIGNUP,
      *                                                        RECOVERY.
      * @param string|null $subStatus                          The user sub-status. Can be: NONE,
@@ -431,6 +431,7 @@ class UserCompany extends BunqModel
         string $country = null,
         array $ubo = null,
         string $chamberOfCommerceNumber = null,
+        string $legalForm = null,
         string $status = null,
         string $subStatus = null,
         int $sessionTimeout = null,
@@ -447,6 +448,7 @@ class UserCompany extends BunqModel
         $this->countryFieldForRequest = $country;
         $this->uboFieldForRequest = $ubo;
         $this->chamberOfCommerceNumberFieldForRequest = $chamberOfCommerceNumber;
+        $this->legalFormFieldForRequest = $legalForm;
         $this->statusFieldForRequest = $status;
         $this->subStatusFieldForRequest = $subStatus;
         $this->sessionTimeoutFieldForRequest = $sessionTimeout;
@@ -499,6 +501,7 @@ class UserCompany extends BunqModel
      *                                                        ultimate beneficiary owners. Minimum zero, maximum four.
      * @param string|null $chamberOfCommerceNumber            The company's chamber of
      *                                                        commerce number.
+     * @param string|null $legalForm                          The company's legal form.
      * @param string|null $status                             The user status. Can be: ACTIVE, SIGNUP,
      *                                                        RECOVERY.
      * @param string|null $subStatus                          The user sub-status. Can be: NONE,
@@ -527,6 +530,7 @@ class UserCompany extends BunqModel
         string $country = null,
         array $ubo = null,
         string $chamberOfCommerceNumber = null,
+        string $legalForm = null,
         string $status = null,
         string $subStatus = null,
         int $sessionTimeout = null,
@@ -551,6 +555,7 @@ class UserCompany extends BunqModel
                 self::FIELD_COUNTRY => $country,
                 self::FIELD_UBO => $ubo,
                 self::FIELD_CHAMBER_OF_COMMERCE_NUMBER => $chamberOfCommerceNumber,
+                self::FIELD_LEGAL_FORM => $legalForm,
                 self::FIELD_STATUS => $status,
                 self::FIELD_SUB_STATUS => $subStatus,
                 self::FIELD_SESSION_TIMEOUT => $sessionTimeout,
@@ -576,10 +581,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param int $id
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setId($id)
     {
@@ -597,10 +603,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $created
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setCreated($created)
     {
@@ -618,10 +625,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $updated
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setUpdated($updated)
     {
@@ -639,10 +647,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $publicUuid
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setPublicUuid($publicUuid)
     {
@@ -660,10 +669,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $name
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setName($name)
     {
@@ -681,10 +691,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $displayName
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setDisplayName($displayName)
     {
@@ -702,10 +713,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $publicNickName
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setPublicNickName($publicNickName)
     {
@@ -723,10 +735,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Pointer[] $alias
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setAlias($alias)
     {
@@ -744,14 +757,37 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $chamberOfCommerceNumber
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setChamberOfCommerceNumber($chamberOfCommerceNumber)
     {
         $this->chamberOfCommerceNumber = $chamberOfCommerceNumber;
+    }
+
+    /**
+     * The company's legal form.
+     *
+     * @return string
+     */
+    public function getLegalForm()
+    {
+        return $this->legalForm;
+    }
+
+    /**
+     * @param string $legalForm
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
+     */
+    public function setLegalForm($legalForm)
+    {
+        $this->legalForm = $legalForm;
     }
 
     /**
@@ -765,10 +801,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $typeOfBusinessEntity
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setTypeOfBusinessEntity($typeOfBusinessEntity)
     {
@@ -786,10 +823,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $sectorOfIndustry
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setSectorOfIndustry($sectorOfIndustry)
     {
@@ -807,10 +845,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $counterBankIban
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setCounterBankIban($counterBankIban)
     {
@@ -828,10 +867,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Avatar $avatar
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setAvatar($avatar)
     {
@@ -849,10 +889,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Address $addressMain
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setAddressMain($addressMain)
     {
@@ -870,10 +911,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Address $addressPostal
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setAddressPostal($addressPostal)
     {
@@ -891,10 +933,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $versionTermsOfService
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setVersionTermsOfService($versionTermsOfService)
     {
@@ -912,10 +955,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param LabelUser $directorAlias
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setDirectorAlias($directorAlias)
     {
@@ -934,10 +978,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $language
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setLanguage($language)
     {
@@ -955,10 +1000,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $country
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setCountry($country)
     {
@@ -977,10 +1023,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $region
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setRegion($region)
     {
@@ -999,10 +1046,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Ubo[] $ubo
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setUbo($ubo)
     {
@@ -1020,10 +1068,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $status
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setStatus($status)
     {
@@ -1043,10 +1092,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param string $subStatus
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setSubStatus($subStatus)
     {
@@ -1064,56 +1114,15 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param int $sessionTimeout
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setSessionTimeout($sessionTimeout)
     {
         $this->sessionTimeout = $sessionTimeout;
-    }
-
-    /**
-     * Card ids used for centralized card limits.
-     *
-     * @return BunqId[]
-     */
-    public function getCardIds()
-    {
-        return $this->cardIds;
-    }
-
-    /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
-     * @param BunqId[] $cardIds
-     */
-    public function setCardIds($cardIds)
-    {
-        $this->cardIds = $cardIds;
-    }
-
-    /**
-     * The centralized limits for user's cards.
-     *
-     * @return CardLimit[]
-     */
-    public function getCardLimits()
-    {
-        return $this->cardLimits;
-    }
-
-    /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
-     * @param CardLimit[] $cardLimits
-     */
-    public function setCardLimits($cardLimits)
-    {
-        $this->cardLimits = $cardLimits;
     }
 
     /**
@@ -1128,10 +1137,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Amount $dailyLimitWithoutConfirmationLogin
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setDailyLimitWithoutConfirmationLogin($dailyLimitWithoutConfirmationLogin)
     {
@@ -1150,10 +1160,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param NotificationFilter[] $notificationFilters
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setNotificationFilters($notificationFilters)
     {
@@ -1171,10 +1182,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param Customer $customer
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setCustomer($customer)
     {
@@ -1192,10 +1204,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param CustomerLimit $customerLimit
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setCustomerLimit($customerLimit)
     {
@@ -1213,10 +1226,11 @@ class UserCompany extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param BillingContractSubscription[] $billingContract
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setBillingContract($billingContract)
     {
@@ -1261,6 +1275,10 @@ class UserCompany extends BunqModel
         }
 
         if (!is_null($this->chamberOfCommerceNumber)) {
+            return false;
+        }
+
+        if (!is_null($this->legalForm)) {
             return false;
         }
 
@@ -1321,14 +1339,6 @@ class UserCompany extends BunqModel
         }
 
         if (!is_null($this->sessionTimeout)) {
-            return false;
-        }
-
-        if (!is_null($this->cardIds)) {
-            return false;
-        }
-
-        if (!is_null($this->cardLimits)) {
             return false;
         }
 

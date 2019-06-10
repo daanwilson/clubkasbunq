@@ -32,23 +32,21 @@ class Kernel extends ConsoleKernel
         }else{
 
             //overige cronjobs. Welke iedere minuut aangeroepen worden.
-            $schedule->call(function(){
-                //ieder uur de transacties bijwerken
-                BankAccount::syncBankAccounts();
-            })->hourly();
-
             $schedule->call(function () {
                 //de eerste van de maand de Bunq factuur incasseren.
                 if(Setting('invoice_account_id')>0){
                     $invoiceAccount = BankAccount::find(Setting('invoice_account_id'));
-					//dd($invoiceAccount);
+                    //dd($invoiceAccount);
                     if(!empty($invoiceAccount) && $invoiceAccount->id > 0){
-                            Bunq::get()->BunqInvoices($invoiceAccount);
+                        Bunq::get()->BunqInvoices($invoiceAccount);
                     }
                 }
-            })->monthlyOn(1, '09:00');
-            //})->everyMinute();
+            })->monthlyOn(1, '09:05');
 
+            $schedule->call(function(){
+                //ieder uur de transacties bijwerken
+                BankAccount::syncBankAccounts();
+            })->hourly();
 
         }
     }

@@ -35,8 +35,8 @@ class ShareDetail extends BunqModel
     protected $readOnly;
 
     /**
-     * The share details for a draft payment share. Remember to replace
-     * 'draft_payment' with 'ShareDetailDraftPayment' before sending a request.
+     * The share details for a draft payment share. In the response
+     * 'draft_payment' is replaced by 'ShareDetailDraftPayment'.
      *
      * @var ShareDetailDraftPayment
      */
@@ -99,10 +99,11 @@ class ShareDetail extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param ShareDetailPayment $payment
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setPayment($payment)
     {
@@ -121,10 +122,11 @@ class ShareDetail extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param ShareDetailReadOnly $readOnly
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setReadOnly($readOnly)
     {
@@ -132,8 +134,8 @@ class ShareDetail extends BunqModel
     }
 
     /**
-     * The share details for a draft payment share. Remember to replace
-     * 'draft_payment' with 'ShareDetailDraftPayment' before sending a request.
+     * The share details for a draft payment share. In the response
+     * 'draft_payment' is replaced by 'ShareDetailDraftPayment'.
      *
      * @return ShareDetailDraftPayment
      */
@@ -143,10 +145,11 @@ class ShareDetail extends BunqModel
     }
 
     /**
-     * @deprecated User should not be able to set values via setters, use
-     * constructor.
-     *
      * @param ShareDetailDraftPayment $draftPayment
+     *
+     * @deprecated User should not be able to set values via setters, use
+     *             constructor.
+     *
      */
     public function setDraftPayment($draftPayment)
     {
