@@ -7,8 +7,8 @@
 <blockquote>
     Importeer een leden bestand voor <strong>seizoen {{ $season->season_name }}</strong>. Deze is te downloaden vanuit scouts online : 
     <a href="https://sol.scouting.nl" target="_blank">sol.scouting.nl</a> onder het kopje 'Organisatie' - 'Leden'.<br/>
-    LET OP: Zorg dat bij de export de optie 'Zo vaak als een lid functies heeft' geselecteerd is en klik vervolgens op 'Zoeken'. 
-    Vervolgens kies je voor 'exporteren' waarmee een XML document wordt gedownload. Upload dit document hier.    
+    <u>LET OP</u>: Zorg dat bij de export de optie <b><u>'Zo vaak als een lid functies heeft'</u></b> geselecteerd is en klik vervolgens op <b><u>'Zoeken'</u></b>.
+    Tot slot kies je voor 'exporteren' waarmee een XML document wordt gedownload. Upload dit document hier.
 </blockquote>
 <form autocomplete="off" method="POST" action="" class="form-horizontal form-vue" @submit.prevent="onSubmit" enctype="multipart/form-data">
     {{ csrf_field() }}

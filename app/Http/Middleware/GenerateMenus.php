@@ -33,17 +33,7 @@ class GenerateMenus {
             /* @var $menu \Lavary\Menu\Builder */
             if (auth()->check()) {
                 $menu->add(_('Home'), ['route' => 'home'])->prepend('<i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;');
-                if(Auth::User()->can('team-management')){
-                    $menu->add(_('Teams'), ['route' => 'teams.index'])->prepend('<i class="fa fa-flag fa-fw"></i>&nbsp;');
-                }
-                if(Auth::User()->can(['member-listing','member-management','member-functions'])){
-                    $menu->add(_('Leden'), ['route' => 'members.index'])->nickname('leden')->prepend('<i class="fas fa-users fa-fw"></i>&nbsp;');
-                    if(Auth::User()->can('member-management')){
-                        $menu->get('leden')->add(_('Leden'), ['route' => 'members.index'])->prepend('<i class="fas fa-users fa-fw"></i>&nbsp;');
-                        $menu->get('leden')->add(_('Leden importeren'), ['route' => 'members.import'])->prepend('<i class="fas fa-file-import"></i>&nbsp;');
-                        $menu->get('leden')->add(_('Clubloten importeren'), ['route' => 'members.clubloten'])->prepend('<i class="fas fa-donate"></i>&nbsp;');
-                    }
-                }
+
                 if(Auth::User()->can(['account-listing'])){
                     $menu->add(_('Bankrekeningen'), ['route' => 'accounts.index'])->nickname('bankaccounts')->prepend('<i class="fa fa-credit-card fa-fw"></i>&nbsp;');
                     $accounts = \Auth::User()->BankAccounts();
@@ -53,13 +43,30 @@ class GenerateMenus {
                     
                 }
                 if(Auth::User()->can(['cash-management'])){
-                    $menu->add(_('Kleine kas'), ['route' => 'cash.index'])->nickname('cash')->prepend('<i class="fa fa-wallet fa-fw"></i>&nbsp;');
+                    $menu->add(_('Kleine kas'), ['route' => 'cash.index'])->nickname('cash')->prepend('<i class="fa fa-wallet fa-fw"></i>&nbsp;')->divide();
                     $cashaccounts = \Auth::User()->CashAccounts();
                     foreach ($cashaccounts as $cashaccount){
                         $menu->get('cash')->add($cashaccount->getName().'<span class="label label-'.($cashaccount->getAmount()>0?'success':'danger').' pull-right">'.$cashaccount->getAmountFormated().'</span>', ['route' => ['cash.edit','id'=>$cashaccount->team->id ]]);
                     }
-
                 }
+                if(Auth::User()->can('team-management')){
+                    $menu->add(_('Teams'), ['route' => 'teams.index'])->prepend('<i class="fa fa-flag fa-fw"></i>&nbsp;');
+                }
+                if(Auth::User()->can(['member-listing','member-management','member-functions'])){
+                    $menu->add(_('Leden'), ['route' => 'members.index'])->nickname('leden')->prepend('<i class="fas fa-users fa-fw"></i>&nbsp;')->divide();
+                    if(Auth::User()->can('member-management')){
+                        $menu->get('leden')->add(_('Leden'), ['route' => 'members.index'])->prepend('<i class="fas fa-users fa-fw"></i>&nbsp;');
+                        $menu->get('leden')->add(_('Leden importeren'), ['route' => 'members.import'])->prepend('<i class="fas fa-file-import"></i>&nbsp;');
+                        $menu->get('leden')->add(_('Clubloten importeren'), ['route' => 'members.clubloten'])->prepend('<i class="fas fa-donate"></i>&nbsp;');
+                    }
+                }
+
+                if(Auth::User()->can('bunqtab-payment-requests')) {
+                    $menu->add(_("Bunq Tabs (Betaalverzoeken)"), ['route' => 'bunqtabs.index'])->nickname('bunqtabs')->prepend('<i class="fas fa-cash-register"></i>&nbsp;');
+
+                    $menu->add(_("Interne betalingen"), ['route' => 'internalpayments.index'])->prepend('<i class="fas fa-exchange-alt"></i>&nbsp;')->divide();
+                }
+
                 if(Auth::User()->can(['user-management','role-management','permissions-management'])){
                     $menu->add(_('Gebruikers'), ['route' => 'users.index'])->nickname('users')->prepend('<i class="far fa-user-circle"></i>&nbsp;');
                     if(Auth::User()->can('user-management')){
@@ -88,11 +95,6 @@ class GenerateMenus {
                     if(Auth::User()->can('money-items-management')) {
                         $menu->get('settings')->add(_('Posten'), ['route' => 'moneyitem.index'])->prepend('<i class="fas fa-sitemap"></i>&nbsp;');
                     }
-                }
-                if(Auth::User()->can('bunqtab-payment-requests')) {
-                    $menu->add(_("Bunq Tabs (Betaalverzoeken)"), ['route' => 'bunqtabs.index'])->nickname('bunqtabs')->prepend('<i class="fas fa-cash-register"></i>&nbsp;');
-
-                    $menu->add(_("Interne betalingen"), ['route' => 'internalpayments.index'])->prepend('<i class="fas fa-exchange-alt"></i>&nbsp;');
                 }
 
             }

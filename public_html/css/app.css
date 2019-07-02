@@ -182,6 +182,10 @@ input[type="month"] {
     margin-top: 55px;
   }
 }
+.sidebar .sidebar-nav li.divider {
+  padding: 5px 0;
+  background-color: #77acd9;
+}
 .color-preview {
   padding: 2px 5px;
 }
