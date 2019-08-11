@@ -24,7 +24,7 @@ class CreateBankPaymentsTable extends Migration
             $table->timestamp('created')->nullable();
             $table->timestamp('updated')->nullable();
             $table->string('counterpart_IBAN',50)->nullable();
-            $table->string('counterpart_name',50)->nullable();
+            $table->string('counterpart_name',100)->nullable();
             $table->unsignedInteger('batch_id')->nullable();
             $table->unsignedTinyInteger('season_id')->nullable();
             $table->unsignedTinyInteger('purpose_id')->nullable();

@@ -21,9 +21,9 @@ class Setting extends  Model
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('setting.edit',null),
+            'edit_url'=>'/setting',
             'remove'=>true,            
-            'remove_url'=>route('setting.delete',null),
+            'remove_url'=>'/setting',
             
             'search'=>array(
                 /*'id'=>array('operator'=>'=','value'=>'%s'),

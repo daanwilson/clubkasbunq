@@ -16,7 +16,7 @@
 						Waarschijnlijk is dit een Bunq bankrekening waardoor u de betaling kunt afhandelen in de BUNQ APP op uw telefoon.
 						<hr/>
 						<div>Omschrijving: {{$request->getValue()->getDescription()}}</div>
-						<div>Bedrag: {{$request->getValue()->getAmountInquired()->getCurrency().'&nbsp;'.$request->getValue()->getAmountInquired()->getValue()}}</div>
+						<div>Bedrag: {!! $request->getValue()->getAmountInquired()->getCurrency().'&nbsp;'.$request->getValue()->getAmountInquired()->getValue() !!}</div>
 						<br/>
 						Betaling status: {{$token->status}}.
 

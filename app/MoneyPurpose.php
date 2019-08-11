@@ -15,9 +15,9 @@ class MoneyPurpose extends Model
             'primary_key'=>'id',
             'edit'=>false,
             'view'=>true,
-            'edit_url'=>route('moneypurpose.show',null),
+            'edit_url'=>'/money/purposes',
             'remove'=>true,            
-            'remove_url'=>route('moneypurpose.delete',null),
+            'remove_url'=>'/money/purposes',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

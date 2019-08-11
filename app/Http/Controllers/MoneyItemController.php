@@ -94,7 +94,7 @@ class MoneyItemController extends Controller
      */
     public function edit(MoneyItem $MoneyItem)
     {
-        return view('moneyitem.edit',  compact('MoneyItem'));
+        return view('moneyitems.edit',  compact('MoneyItem'));
     }
 
     /**

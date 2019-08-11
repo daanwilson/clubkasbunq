@@ -15,9 +15,9 @@ class MoneyItem extends Model
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('moneyitem.show',null),
+            'edit_url'=>'/money/items',
             'remove'=>true,            
-            'remove_url'=>route('moneyitem.delete',null),
+            'remove_url'=>'/money/items',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

@@ -15,9 +15,9 @@ class Season extends Model
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('season.show',null),
+            'edit_url'=>'/seasons',
             'remove'=>true,            
-            'remove_url'=>route('season.delete',null),
+            'remove_url'=>'/seasons',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),
@@ -28,8 +28,8 @@ class Season extends Model
     }
     static function current(){
         //Session::forget('season');
-        if(request('season')>0){
-            static::setSeason(request('season'));
+        if(request('set_season')>0){
+            static::setSeason(request('set_season'));
         }
         $id = Session::get('season', function(){
             $seasons = static::allCached();
@@ -55,8 +55,8 @@ class Season extends Model
     function link(){
         $url = url()->current();
         $get = $_GET;
-        unset($get['season']);
-        $get['season']=$this->id;
+        unset($get['set_season']);
+        $get['set_season']=$this->id;
         $query = http_build_query($get);
         $url.='?'.$query;
         return $url;

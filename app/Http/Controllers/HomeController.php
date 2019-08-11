@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\accountBalance;
+use App\Charts\accountBalanceChart;
+use App\Team;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +28,10 @@ class HomeController extends Controller
     {
         $teams = auth()->user()->Teams();
         $cash = auth()->user()->CashAccounts();
+
+        $chart = new accountBalanceChart();
+        $chart->loadData();
+
         $cash_total = 0;
         foreach($cash as $c){
             $cash_total+=$c->getAmount();
@@ -36,6 +43,6 @@ class HomeController extends Controller
         foreach($bankaccounts as $account){
             $bankamount+= $account->amount;
         }
-        return view('home',compact('teams','cash','cash_total','bankcount','bankamount'));
+        return view('home',compact('teams','cash','cash_total','bankcount','bankamount','chart'));
     }
 }

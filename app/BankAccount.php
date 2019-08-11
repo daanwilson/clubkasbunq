@@ -49,4 +49,12 @@ class BankAccount extends Model
     static function getByName($name){
         return parent::all()->where('description','LIKE',$name)->first();
     }
+    function getBalanceBySeason(Season $season){
+        //current amount;
+        if($season->id > Season::current()->id){
+            return 0;
+        }
+        $changed = BankPayments::where('bankaccount_id',$this->id)->where('season_id','>',$season->id)->sum('amount');
+        return number_format($this->amount - $changed,2,'.','');
+    }
 }

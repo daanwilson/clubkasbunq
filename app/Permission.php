@@ -12,9 +12,9 @@ class Permission extends EntrustPermission
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('permission.edit',null),
+            'edit_url'=>'/permission',
             'remove'=>true,            
-            'remove_url'=>route('permission.delete',null),
+            'remove_url'=>'/permission',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

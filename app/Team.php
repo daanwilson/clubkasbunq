@@ -50,9 +50,9 @@ class Team extends Model
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('team.edit',null),
+            'edit_url'=>'/team',
             'remove'=>true,            
-            'remove_url'=>route('team.delete',null),
+            'remove_url'=>'/team',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

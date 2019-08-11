@@ -56,7 +56,7 @@
                                 $totals[$team->id] = $a;
                                 $sum+=$a;
                             @endphp
-                            {{ MoneyFormat($a) }}
+                            {!! MoneyFormat($a)  !!}
                         @else
                             &nbsp;
                         @endif
@@ -64,7 +64,7 @@
                 @endforeach
                 <td>
                     @if($sum>0)
-                        <strong><u>{{ MoneyFormat($sum) }}</u></strong>
+                        <strong><u>{!! MoneyFormat($sum) !!}</u></strong>
                     @else
                         &nbsp;
                     @endif
@@ -83,7 +83,7 @@
                             @php
                                 $totals[$team->id]+= ($amountPart * $aantalY[$team->id]);
                             @endphp
-                            {{ MoneyFormat($amountPart * $aantalY[$team->id] ) }}
+                            {!! MoneyFormat($amountPart * $aantalY[$team->id] )  !!}
                         @else
                             &nbsp;
                         @endif
@@ -91,7 +91,7 @@
                 @endforeach
                 <td>
                     @if($amount>0)
-                        <strong><u>{{ MoneyFormat($amountPart * $total ) }}</u></strong>
+                        <strong><u>{!! MoneyFormat($amountPart * $total )  !!}</u></strong>
                     @else
                         &nbsp;
                     @endif
@@ -114,12 +114,12 @@
                                 $amount+= ($amountPart * $aantalY[$team->id]);
                             }
                         @endphp
-                        {{ MoneyFormat($amountPart * $aantalY[$team->id]) }}
+                        {!! MoneyFormat($amountPart * $aantalY[$team->id]) !!}
                     </td>
                 @endforeach
                 <td>
                     @if($amount>0)
-                        <strong><u>{{ MoneyFormat($amount ) }}</u></strong>
+                        <strong><u>{!! MoneyFormat($amount ) !!}</u></strong>
                     @else
                         &nbsp;
                     @endif
@@ -139,7 +139,7 @@
                             @php
                                 $totals[$team->id]-= ($amountPart * $aantalY[$team->id]);
                             @endphp
-                            {{ MoneyFormat($amountPart * $aantalY[$team->id] ) }}
+                            {!! MoneyFormat($amountPart * $aantalY[$team->id] ) !!}
                         @else
                             &nbsp;
                         @endif
@@ -147,7 +147,7 @@
                 @endforeach
                 <td>
                     @if($amount>0)
-                        <strong><u>{{ MoneyFormat($amountPart * $total ) }}</u></strong>
+                        <strong><u>{!! MoneyFormat($amountPart * $total ) !!}</u></strong>
                     @else
                         &nbsp;
                     @endif
@@ -163,7 +163,7 @@
                 @foreach($teams as $team)
                     <td>
                         @if(isset($totals[$team->id]))
-                            {{ MoneyFormat($totals[$team->id] ) }}
+                            {!! MoneyFormat($totals[$team->id] ) !!}
                         @else
                             &nbsp;
                         @endif
@@ -171,7 +171,7 @@
                 @endforeach
                 <td>
                     @if(count($totals)>0)
-                        <strong><u>{{ MoneyFormat(array_sum($totals)) }}</u></strong>
+                        <strong><u>{!! MoneyFormat(array_sum($totals)) !!}</u></strong>
                     @else
                         &nbsp;
                     @endif

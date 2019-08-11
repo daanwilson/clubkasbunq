@@ -5,6 +5,12 @@
 @section('content')
 <div id="dashboard">
     <div class="row">
+        <div class="col-xs-12">
+            {!! $chart->container() !!}
+            {!! $chart->script() !!}
+        </div>
+    </div>
+    <div class="row">
         @foreach($teams as $team)
         
                 <div class="col-lg-3 col-md-6">
@@ -38,9 +44,9 @@
                                 <div class="col-xs-3">
                                     <i class="far fa-credit-card fa-5x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right"  title="{{MoneyFormat($bankamount)}}">
+                                <div class="col-xs-9 text-right"  title="{!! MoneyFormat($bankamount) !!}">
                                     <div>Bankrekeningen</div>
-                                    <div class="huge ellipsis">{{ MoneyFormat($bankamount) }}</div>
+                                    <div class="huge ellipsis">{!! MoneyFormat($bankamount) !!}</div>
                                     <div>Geld op {{ $bankcount }} rekeningen</div>
                                 </div>
                             </div>
@@ -62,9 +68,9 @@
                                 <div class="col-xs-3">
                                     <i class="fa fa-wallet fa-5x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right" title="{{MoneyFormat($cash_total)}}">
+                                <div class="col-xs-9 text-right" title="{!! MoneyFormat($cash_total) !!}">
                                     <div>Kleine kas</div>
-                                    <div class="huge ellipsis">{{MoneyFormat($cash_total)}}</div>
+                                    <div class="huge ellipsis">{!! MoneyFormat($cash_total) !!}</div>
                                     <div>Geld in {{ count($cash) }} kleine kas{{(count($cash) > 1 ? 'sen' : '')}}</div>
                                 </div>
                             </div>

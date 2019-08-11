@@ -74,9 +74,9 @@ class Role extends EntrustRole
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('role.edit',null),
+            'edit_url'=>'/role',
             'remove'=>true,            
-            'remove_url'=>route('role.delete',null),
+            'remove_url'=>'/role',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

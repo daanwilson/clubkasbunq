@@ -1,27 +1,31 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "bunq/sdk_php": "^1.0",
+        "consoletvs/charts": "6.*",
         "dirape/token": "^2.1",
-        "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
+        "fideloper/proxy": "~4",
+        "laravel/framework": "^5.8.0",
         "laravel/tinker": "~1.0",
         "lavary/laravel-menu": "^1.7",
         "queueworker/sansdaemon": "^1.1",
+        "simplesoftwareio/simple-qrcode": "~2",
         "true/punycode": "~2.0",
-        "zizaco/entrust": "5.2.x-dev",
-        "simplesoftwareio/simple-qrcode": "~2"
+        "zizaco/entrust": "5.2.x-dev"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~7"
     },
     "autoload": {
         "classmap": [
@@ -31,8 +35,9 @@
         "psr-4": {
             "App\\": "app/"
         },
-        "files" : ["app/functions.php"]
-        
+        "files": [
+            "app/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -41,8 +46,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {

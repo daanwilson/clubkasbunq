@@ -114,9 +114,9 @@ class Member extends Model
             'primary_key' => 'id',
             'edit' => false,
             'view' => (\Auth::User()->can('member-listing')),
-            'edit_url' => route('member.show', null),
+            'edit_url' => '/member',
             'remove' => (\Auth::User()->can('member-management')),
-            'remove_url' => route('member.delete', null),
+            'remove_url' => '/member',
 
             'search' => array(
                 'id' => array('operator' => '=', 'value' => '%s'),

@@ -17,9 +17,9 @@ class BunqTabRequests extends Model
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('bunqtabs.edit',null),
+            'edit_url'=>'/bunqtab',
             'remove'=>true,
-            'remove_url'=>route('bunqtabs.delete',null),
+            'remove_url'=>'/bunqtab',
 
             'search'=>array(
                 /*'id'=>array('operator'=>'=','value'=>'%s'),

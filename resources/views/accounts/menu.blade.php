@@ -5,7 +5,7 @@
             <span class='bullit' style='background-color:{{ $account->getMonetaryAccountBank()->getSetting()->getColor() }}'></span>
             {{ $account->getMonetaryAccountBank()->getDescription() }}
             
-            <small class="pull-right">{{ $account->getMonetaryAccountBank()->getBalance()->getValue().'&nbsp;'.$account->getMonetaryAccountBank()->getBalance()->getCurrency() }}</small>
+            <small class="pull-right">{!! $account->getMonetaryAccountBank()->getBalance()->getValue().'&nbsp;'.$account->getMonetaryAccountBank()->getBalance()->getCurrency()  !!}</small>
             @foreach ($account->getMonetaryAccountBank()->getAlias() as $alias)
                 @if($alias->getType()=='IBAN')
                     <div class="small">{{ $alias->getValue() }}</div>

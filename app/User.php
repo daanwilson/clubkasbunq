@@ -43,9 +43,9 @@ class User extends Authenticatable
             'primary_key'=>'id',
             'view'=>false,
             'edit'=>true,
-            'edit_url'=>route('user.edit',null),
+            'edit_url'=>'/user',
             'remove'=>true,            
-            'remove_url'=>route('user.delete',null),
+            'remove_url'=>'/user',
             
             'search'=>array(
                 'id'=>array('operator'=>'=','value'=>'%s'),

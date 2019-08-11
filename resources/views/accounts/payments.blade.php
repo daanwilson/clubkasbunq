@@ -13,7 +13,7 @@
 
 @section('content')
 <button class="btn {{ $bankAccount->amount>0 ? 'btn-success' : 'btn-danger' }} pull-right" type="button">
-    Balans&nbsp;<span class="badge">{{ $bankAccount->getAmountFormated() }}</span>
+    Balans&nbsp;<span class="badge">{!! $bankAccount->getAmountFormated() !!}</span>
 </button>
 
 

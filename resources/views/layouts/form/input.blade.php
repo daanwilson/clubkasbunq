@@ -1,5 +1,5 @@
-<div class="form-group {{@$required && @$errors->has($field) ? 'has-error':''}}">
-    <label for="input_{{$field}}" class="col-md-4 control-label">{{$label}}{{ @$required ? '&nbsp;*':'' }}</label>
+<div class="form-group {{ @$required && @$errors->has($field) ? 'has-error':'' }}">
+    <label for="input_{{$field}}" class="col-md-4 control-label">{{$label}}{!! @$required ? '&nbsp;*':'' !!}</label>
     <div class="col-md-8">
         @if($type=='textarea')
             @include('layouts.form.textarea',['vue'=>true])
